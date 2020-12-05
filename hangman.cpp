@@ -31,14 +31,14 @@ class Hangman {
     public:
         // Constructor
         Hangman() {
-            // Construct the word list
+            // Construct the wordlist
             constructWordlist();
 
             // Initialize game
             initializeGame();
         }
 
-        // A function that constructs the word list
+        // A function that constructs the wordlist
         void constructWordlist() {
             // Read words from a file
             std::ifstream file("wordlist.txt");
@@ -49,7 +49,7 @@ class Hangman {
 
                 // Read file line by line
                 while(std::getline(file, line)) {
-                    wordlist.push_back(line); // Add the word to the word list
+                    wordlist.push_back(line); // Add the word to the wordlist
                 }
                 file.close(); // Close the file
             } else { // Otherwise on error exit the game
@@ -66,7 +66,7 @@ class Hangman {
             // Generate random number between 0 and 25
             int amountOfWords = wordlist.size() - 1;
             int randomNum = (rand() % amountOfWords);
-            word = wordlist.at(randomNum); // Use a random word from the word list as the correct word
+            word = wordlist.at(randomNum); // Use a random word from the wordlist as the correct word
 
             incompleteWord.clear(); // If re-initializing the game, clear the incomplete word
 
