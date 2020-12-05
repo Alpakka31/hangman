@@ -4,7 +4,7 @@
 # LICENSE file in the root directory of this source tree.
 
 CXX := g++
-CXXFLAGS := -O2 -Wall -Wextra -pedantic
+CXXFLAGS := -O2 -std=c++11 -Wall -Wextra -pedantic
 OBJS := hangman.o
 PREFIX := /usr
 BINDIR := ${PREFIX}/local/bin

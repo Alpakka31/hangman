@@ -8,7 +8,7 @@ LICENSE file in the root directory of this source tree.
 #include <iostream>
 #include <string>
 #include <vector>
-#include <ctime>
+#include <random>
 #include <fstream>
 
 // Clear terminal screen
@@ -60,13 +60,14 @@ class Hangman {
 
         // A function that initializes the game
         void initializeGame() {
-            // Seed the random number generator
-            srand((unsigned)time(NULL));
+            // Create the RNG
+            std::random_device dev;
+            std::mt19937 rng(dev());
 
             // Generate random number between 0 and 25
             int amountOfWords = wordlist.size() - 1;
-            int randomNum = (rand() % amountOfWords);
-            word = wordlist.at(randomNum); // Use a random word from the wordlist as the correct word
+            std::uniform_int_distribution<std::mt19937::result_type> dist(0, amountOfWords);
+            word = wordlist.at(dist(rng)); // Use a random word from the wordlist as the correct word
 
             incompleteWord.clear(); // If re-initializing the game, clear the incomplete word
 
