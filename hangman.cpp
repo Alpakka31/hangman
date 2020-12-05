@@ -52,7 +52,7 @@ class Hangman {
             wordlist.push_back("guarantee");
             wordlist.push_back("keen");
             wordlist.push_back("waste");
-            wordlist.push_back("keen");
+            wordlist.push_back("dog");
             wordlist.push_back("sister");
             wordlist.push_back("payment");
             wordlist.push_back("lumber");
