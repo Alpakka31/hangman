@@ -9,6 +9,7 @@ LICENSE file in the root directory of this source tree.
 #include <string>
 #include <vector>
 #include <ctime>
+#include <fstream>
 
 // Clear terminal screen
 void clearScreen() {
@@ -30,35 +31,31 @@ class Hangman {
     public:
         // Constructor
         Hangman() {
-            // Add some words to the word list
-            wordlist.push_back("bouncy");
-            wordlist.push_back("plough");
-            wordlist.push_back("rustic");
-            wordlist.push_back("hellish");
-            wordlist.push_back("fry");
-            wordlist.push_back("wanting");
-            wordlist.push_back("haunt");
-            wordlist.push_back("sheep");
-            wordlist.push_back("suspect");
-            wordlist.push_back("soda");
-            wordlist.push_back("grade");
-            wordlist.push_back("honey");
-            wordlist.push_back("practice");
-            wordlist.push_back("efficient");
-            wordlist.push_back("breezy");
-            wordlist.push_back("income");
-            wordlist.push_back("story");
-            wordlist.push_back("peace");
-            wordlist.push_back("guarantee");
-            wordlist.push_back("keen");
-            wordlist.push_back("waste");
-            wordlist.push_back("dog");
-            wordlist.push_back("sister");
-            wordlist.push_back("payment");
-            wordlist.push_back("lumber");
+            // Construct the word list
+            constructWordlist();
 
             // Initialize game
             initializeGame();
+        }
+
+        // A function that constructs the word list
+        void constructWordlist() {
+            // Read words from a file
+            std::ifstream file("wordlist.txt");
+
+            // If file opened succesfully do this
+            if (file.is_open()) {
+                std::string line;
+
+                // Read file line by line
+                while(std::getline(file, line)) {
+                    wordlist.push_back(line); // Add the word to the word list
+                }
+                file.close(); // Close the file
+            } else { // Otherwise on error exit the game
+                std::cout << "Couldn't open file!\n";
+                exit(1);
+            }
         }
 
         // A function that initializes the game
@@ -67,7 +64,8 @@ class Hangman {
             srand((unsigned)time(NULL));
 
             // Generate random number between 0 and 25
-            int randomNum = (rand() % 24);
+            int amountOfWords = wordlist.size() - 1;
+            int randomNum = (rand() % amountOfWords);
             word = wordlist.at(randomNum); // Use a random word from the word list as the correct word
 
             incompleteWord.clear(); // If re-initializing the game, clear the incomplete word
